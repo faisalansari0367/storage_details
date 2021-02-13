@@ -1,6 +1,6 @@
 name: storage_details
 description: To get details about Internal storage, sd card And otg devices. It provides path and used, free and total space.
-version: 0.0.1
+version: 0.0.2
 author: Faisal Ansari<faisalansari0367@gmail.com>
 homepage: https://github.com/faisalansari0367/storage_details.git
 
