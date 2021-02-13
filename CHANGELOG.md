@@ -1,3 +1,5 @@
 ## 0.0.1
+- First version of plugin
 
-* TODO: Describe initial release.
+## 0.0.1 + 1
+- Added more desciptive example 
