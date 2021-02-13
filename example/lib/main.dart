@@ -24,18 +24,9 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-    } on PlatformException {
-    }
-
     final _data = await StorageDetails.getspace;
     data = _data;
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
-
     setState(() {
     });
   }
@@ -53,10 +44,10 @@ class _MyAppState extends State<MyApp> {
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  Text(data[index].free.toString()),
-                  Text(data[index].path),
-                  Text(data[index].total.toString()),
-                  Text(data[index].used.toString()),
+                  Text("Path ${data[index].path}"),
+                  Text("Free space in Bytes ${data[index].free}"),
+                  Text("Total space in Bytes ${data[index].total}"),
+                  Text("Used space in Bytes  ${data[index].used}"),
                 ],
               );
             },
