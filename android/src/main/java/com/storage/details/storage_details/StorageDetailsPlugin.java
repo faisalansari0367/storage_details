@@ -21,7 +21,6 @@ import java.io.File;
 import android.net.Uri;
 import android.content.Intent;
 
-
 /** StorageDetailsPlugin */
 public class StorageDetailsPlugin implements FlutterPlugin, MethodCallHandler {
   /// The MethodChannel that will the communication between Flutter and native
@@ -33,14 +32,13 @@ public class StorageDetailsPlugin implements FlutterPlugin, MethodCallHandler {
   private MethodChannel methodChannel;
   private Context context;
   private Context applicationContext;
-  
+
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
     final StorageDetailsPlugin instance = new StorageDetailsPlugin();
     instance.onAttachedToEngine(registrar.context(), registrar.messenger());
   }
 
-  
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
     onAttachedToEngine(binding.getApplicationContext(), binding.getBinaryMessenger());
@@ -51,7 +49,7 @@ public class StorageDetailsPlugin implements FlutterPlugin, MethodCallHandler {
     methodChannel = new MethodChannel(messenger, "storage_details");
     methodChannel.setMethodCallHandler(this);
   }
-  
+
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getPlatformVersion")) {
@@ -70,11 +68,12 @@ public class StorageDetailsPlugin implements FlutterPlugin, MethodCallHandler {
     methodChannel = null;
   }
 
-   ArrayList<HashMap> getSpace() {
+  ArrayList<HashMap> getSpace() {
     String path = Environment.getExternalStorageDirectory().getPath();
     final ArrayList<HashMap> extRootPaths = new ArrayList<>();
     final ArrayList<HashMap> removable = new ArrayList<>();
     final File[] appsDir = applicationContext.getExternalFilesDirs(null);
+    
     for (final File file : appsDir) {
       String a = file.getAbsolutePath();
       if (Environment.isExternalStorageRemovable(file)) {
