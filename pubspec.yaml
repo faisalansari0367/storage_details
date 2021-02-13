@@ -1,8 +1,8 @@
 name: storage_details
-description: A new flutter plugin project.
-version: 0.0.1
-author:
-homepage:
+description: To get details about Internal storage, sd card And otg devices. It provides path and used, free and total space.
+version: [0.0.1] - 2021-02-13
+author: Faisal Ansari<faisalansari0367@gmail.com>
+homepage: https://github.com/faisalansari0367/storage_details.git
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
