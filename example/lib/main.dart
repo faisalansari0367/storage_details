@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:storage_details/storage_details.dart';
 
 void main() {
@@ -27,8 +26,7 @@ class _MyAppState extends State<MyApp> {
     final _data = await StorageDetails.getspace;
     data = _data;
     if (!mounted) return;
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -42,12 +40,13 @@ class _MyAppState extends State<MyApp> {
           child: ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
+              final storage = data[index];
               return Column(
                 children: [
-                  Text("Path ${data[index].path}"),
-                  Text("Free space in Bytes ${data[index].free}"),
-                  Text("Total space in Bytes ${data[index].total}"),
-                  Text("Used space in Bytes  ${data[index].used}"),
+                  Text("Path ${storage.path}"),
+                  Text("Free space in Bytes ${storage.free}"),
+                  Text("Total space in Bytes ${storage.total}"),
+                  Text("Used space in Bytes  ${storage.used}"),
                 ],
               );
             },

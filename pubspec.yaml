@@ -1,11 +1,11 @@
 name: storage_details
 description: To get details about Internal storage, sd card And otg devices. It provides path and used, free and total space.
-version: 0.0.3
+version: 0.0.4
 # author: <faisalansari0367@gmail.com>
 homepage: https://github.com/faisalansari0367/storage_details.git
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=1.20.0"
 
 dependencies:

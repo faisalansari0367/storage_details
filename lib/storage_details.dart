@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 
@@ -9,24 +8,23 @@ class StorageDetails {
   static const String _getStorageDetails = 'getStorageDetails';
   static const EventChannel _eventChannel = const EventChannel('event_channel');
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-
+  static Future<String?> get platformVersion async {
+    final String? version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
+
   /// this method provides you the path of internal and removable sd card and it also provides the used, free, available space
   static Future<List<Storage>> get getspace async {
-    var data;
     try {
-      data = await _channel.invokeMethod(_getStorageDetails);
+      final object = await _channel.invokeMethod(_getStorageDetails);
+      final List<Storage> storage = Storage.fromMap(object);
+      return storage;
     } catch (e) {
       throw Exception(e);
     }
-    final List<Storage> storage = Storage.fromMap(data);
-    return storage;
   }
 
-  static Future<bool> deleteWhenError(List<String> paths) async {
+  static Future<bool?> deleteWhenError(List<String> paths) async {
     try {
       var result = await _channel.invokeMethod(
         'deleteWhenError',
@@ -45,24 +43,28 @@ class StorageDetails {
   }
 }
 
-
-
-
 class Storage {
   final int free;
   final int total;
   final int used;
   final String path;
-  Storage({this.path, this.used, this.free, this.total});
+
+  Storage({
+    required this.path,
+    required this.used,
+    required this.free,
+    required this.total,
+  });
 
   static List<Storage> fromMap(List list) {
     return List.generate(list.length, (index) {
       final Directory dir = Directory(list[index]['path']);
       final String path = dir.parent.parent.parent.parent.path;
+      final data = list[index];
       return Storage(
-        total: int.parse(list[index]['total']),
-        free: int.parse(list[index]['free']),
-        used: int.parse(list[index]['total']) - int.parse(list[index]['free']),
+        total: int.parse(data['total']),
+        free: int.parse(data['free']),
+        used: int.parse(data['total']) - int.parse(data['free']),
         path: path,
       );
     });
