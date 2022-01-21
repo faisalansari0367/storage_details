@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:storage_details/storage_details.dart';
+import 'package:storage_details_example/page_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,22 +37,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              final storage = data[index];
-              return Column(
-                children: [
-                  Text("Path ${storage.path}"),
-                  Text("Free space in Bytes ${storage.free}"),
-                  Text("Total space in Bytes ${storage.total}"),
-                  Text("Used space in Bytes  ${storage.used}"),
-                ],
-              );
-            },
-          ),
-        ),
+        body: MyPageView(),
       ),
     );
   }

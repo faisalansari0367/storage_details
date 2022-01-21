@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:storage_details/storage.dart';
+
 export '../storage.dart';
 
 class StorageDetails {
@@ -11,6 +12,11 @@ class StorageDetails {
 
   static Future<String?> get platformVersion async {
     final String? version = await _channel.invokeMethod('getPlatformVersion');
+    return version;
+  }
+
+  static Future<dynamic> getVideos() async {
+    final version = await _channel.invokeMethod('getVideos');
     return version;
   }
 

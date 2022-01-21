@@ -1,6 +1,7 @@
 package com.storage.details.storage_details;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import android.os.Build;
 
 import io.flutter.plugin.common.MethodChannel.Result;
 
@@ -19,23 +20,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.io.File;
+import java.util.function.Function;
 
 public class Methods {
     private Context applicationContext;
     private Activity activity;
+    private final AsyncWork asyncWork;
 
     public Methods(Context context) {
         this.applicationContext = context;
+        this.asyncWork = new AsyncWork();
     }
 
     void setActivity(Activity activity) {
         this.activity = activity;
     }
 
-    ArrayList<HashMap> getSpace() {
+    ArrayList<HashMap<String, String>> getSpace() {
         String path = Environment.getExternalStorageDirectory().getPath();
-        final ArrayList<HashMap> extRootPaths = new ArrayList<>();
-        final ArrayList<HashMap> removable = new ArrayList<>();
+        final ArrayList<HashMap<String, String>> extRootPaths = new ArrayList<>();
+        final ArrayList<HashMap<String, String>> removable = new ArrayList<>();
         final File[] appsDir = applicationContext.getExternalFilesDirs(null);
 
         for (final File file : appsDir) {
@@ -105,6 +109,24 @@ public class Methods {
           }
           file.delete();
         }
+      }
+
+      @RequiresApi(Build.VERSION_CODES.Q)
+      public void getVideos(final ThreadResult callback) {
+//        Videos videos = new Videos(applicationContext);
+        asyncWork.run(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        Videos videos = new Videos(applicationContext);
+                        ArrayList<HashMap<String, Object>> result = (ArrayList<HashMap<String, Object>>) videos.getVideoList();
+                        callback.onResult(result);
+                    }
+                }
+        );
+//        ArrayList<HashMap<String, Object>> result = (ArrayList<HashMap<String, Object>>) videos.getVideoList();
+//          System.out.println(result);
+//        return result;
       }
     
       public void getPermissionForSdCard() {
